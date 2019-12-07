@@ -1,0 +1,167 @@
+============================================================================================
+ Connection/Pins
+============================================================================================
+When glasses laying like:
+    |               |
+    |               C   where  C is 4 pin connector pointing up (ie glasses are laying top down,
+    |               |                               nose up)
+    |               |
+    ---- nose -------
+
+Connector is:
+
+        ^ away from nosepiece ^
+  * usb d+    *  VCC (+5V) usb
+  * usb d-    *  GND
+        v towards nosepiece v
+
+============================================================================================
+ Building a connector 
+============================================================================================
+I went through a lot (A LOT!) of iterations of my device not connecting to the host with errors 
+like the following:
+        [71296.061899] usb 1-2: new high-speed USB device number 65 using xhci_hcd
+        [71296.190050] usb 1-2: device descriptor read/64, error -71
+        [71296.426039] usb 1-2: device descriptor read/64, error -71
+        [71296.662012] usb 1-2: new high-speed USB device number 66 using xhci_hcd
+        [71296.789960] usb 1-2: device descriptor read/64, error -71
+        [71297.025973] usb 1-2: device descriptor read/64, error -71
+        [71298.858105] usb usb1-port2: unable to enumerate USB device
+
+It took a long time / many tries without a valid connection and I suspected it wasn't 
+actually usb because of this and tried several other approaches/protocols, but after several
+attempts at building a better connector, I finally got it to connect once and showed up as the 
+following (device was on when I connected it):
+
+[  420.709220] usb 1-1: new high-speed USB device number 2 using ehci-pci
+[  420.843457] usb 1-1: New USB device found, idVendor=05c6, idProduct=901d
+[  420.843469] usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[  420.843477] usb 1-1: Product: Android
+[  420.843484] usb 1-1: Manufacturer: Android
+[  420.843489] usb 1-1: SerialNumber: XXXXXXXX (redacted actual serial number)
+[  421.243901] cdc_acm 1-1:1.0: ttyACM0: USB ACM device
+[  421.244568] usbcore: registered new interface driver cdc_acm
+[  421.244573] cdc_acm: USB Abstract Control Model driver for USB modems and ISDN adapters
+
+
+- However the connection dropped almost immediately.  After a lot more experimentation / frustration,
+I built the latest version of a magnetic connector using: 
+    * https://www.digikey.com/products/en?keywords=1212-1905-ND
+    * https://www.amazon.com/Charger-Replacement-Charge-Fitness-Tracker/dp/B07SZ7BNYD
+    * A spare usb cable 
+By:
+    * Cutting off the non host side of the usb cable and breaking out the wires
+    * Soldering the wires to the correct flat connector surfaces of the digikey part
+    * Cutting up the charger cable to get the magnets out 
+        * leaving them covered in a slight amount of plastic (using crazy glue against metal 
+                directly doesn't really work well)
+        * sanding down the plastic on one side to be more flat
+    * and glueing the magnets to both sides of the connector part
+
+    (In my case I actually used two separate usb cables so both sides could be broken out to a 
+     breadboard)
+
+Even with the connector, it's incredibly hard to get it to connect correctly - I suspect I still
+have weak connections somewhere, but it's not clear where/ why.
+
+Things that eventually worked:
+    * Clamp the glasses down so that the earpieces are facing straight up (so I can somewhat put 
+            my head in to see the screen)
+    * Play with the connector until I actually get a valid connection
+    * Then leaving it in place / a good state 
+    * Probably the biggest thing that seemed to help was that I was originally breaking out 
+        usb wires on a breadboard, then using breadboard jumper wires to connect to a secondary 
+        usb cable breakout.  Once I took the breadboard jumpers out of the equation and connected
+        the cables, the connection still fails a good amount of the time, but it's way more consistent
+
+============================================================================================
+ adb
+============================================================================================
+
+After getting a stable connection, I could start seeing what was available.  
+The first thing I checked was adb:
+    $ adb devices
+    List of devices attached
+    XXXXXXXX        unauthorized
+
+Like most mobile devs, I assume this means usb debugging needs to be enabled somehow.  I've tried 
+messing around with a ton of clicking and bluetooth messages, but haven't found anything that 
+looks like it might enable it.  
+
+The closest thing I've found is the bluetooth reset (click power twice to bring up 
+    eye alignment, click power 3 more times to bring up the fcc / product information,
+    then click power 5 more times to reset the bluetooth connection), but so far this 
+    doesn't seem to affect usb
+
+I assume this means either a) I need some vendor specific keys for adb or b) I somehow need 
+my host key on the device to allow an adb connection.
+
+I'm hoping there's some hidden option or sequence of keypresses (or maybe a bluetooth message - 
+although this seems unlikely) that will approve usb access, but this may be wishful thinking.
+
+
+============================================================================================
+ /dev/ttyACM0
+============================================================================================
+
+cat /dev/ttyACM0 doesn't seem to do anything - I'm not familiar enough with embedded devices
+    especially phones to know what to expect there - I know on other android phones that can be 
+    something like a AT command interface to the phone modem, no clue what it is here.
+
+============================================================================================
+ Device off connection
+============================================================================================
+
+If I power off the glasses and connect usb, the device shows up differently:
+    [ 1619.708555] usb 1-1: new high-speed USB device number 4 using ehci-pci
+    [ 1619.842497] usb 1-1: New USB device found, idVendor=05c6, idProduct=f000
+    [ 1619.842509] usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+    [ 1619.842517] usb 1-1: Product: Android
+    [ 1619.842523] usb 1-1: Manufacturer: Android
+    [ 1619.842529] usb 1-1: SerialNumber: XXXXXXXX
+    [ 1619.843523] usb-storage 1-1:1.0: USB Mass Storage device detected
+    [ 1619.843788] scsi host5: usb-storage 1-1:1.0
+    [ 1620.841705] scsi 5:0:0:0: Direct-Access     Linux    File-Stor Gadget 0318 PQ: 0 ANSI: 2
+    [ 1620.842501] sd 5:0:0:0: Attached scsi generic sg6 type 0
+    [ 1620.846943] sd 5:0:0:0: [sdf] Attached SCSI removable disk
+    [ 1623.512507] usbcore: registered new interface driver usbserial
+    [ 1623.512545] usbcore: registered new interface driver usbserial_generic
+    [ 1623.512577] usbserial: USB Serial support registered for generic
+    [ 1623.558242] usbcore: registered new interface driver option
+    [ 1623.558281] usbserial: USB Serial support registered for GSM modem (1-port)
+
+
+It looks like /dev/sdf dissapears immediately after connect, and after some googling, I found:
+    http://pnijjar.freeshell.org/2019/usb-modeswitch/
+
+    where he had the same problem, and you can disable usb mode switching by either:
+        1) setting DisableSwitching=1 in /etc/usb_modeswitch.conf
+        2) doing something more device device specific in /etc/usb_modeswitch.d
+
+After doing option 1, /dev/sdf stays around, but I haven't tried anything with it yet as I'm
+    scared of screwing something up and bricking the device.  They just announced they're no 
+        longer selling the current version, I'm not sure if that means something new is coming 
+        or if this product is just going away completely, so my backup options if I screw up 
+        are relatively limited
+
+When I do try this, I strongly suspect I will need to do:
+    modprobe g_mass_storage file=/dev/sdf stall=0 (to enable usb storage gadget)
+
+    
+============================================================================================
+ Random
+============================================================================================
+I assume there's a lot of basics here I'm missing because I haven't done much with embedded 
+android / qualcomm specifically.  Still searching for more docs to learn about this
+
+
+Other resources for future work:
+    https://www.amazon.com/dp/B01F7HCB34 (Mobile device forensics)
+    https://www.amazon.com/dp/B00X3TVFWM (Learning Android forensics)
+    https://blog.gbaman.info/?tag=g_mass_storage
+
+
+
+
+
+
