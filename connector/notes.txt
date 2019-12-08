@@ -147,6 +147,65 @@ After doing option 1, /dev/sdf stays around, but I haven't tried anything with i
 When I do try this, I strongly suspect I will need to do:
     modprobe g_mass_storage file=/dev/sdf stall=0 (to enable usb storage gadget)
 
+
+============================================================================================
+ Qualcomm edl mode
+============================================================================================
+After some reading, I found some references to qualcomm edl mode and looked into how it could be 
+triggered.  After some tinkering, I found that if you first power off the device, short D- to 
+ground, plug in the device, then after several seconds remove the short, you get the following:
+
+[  518.482603] usb 5-2: New USB device found, idVendor=05c6, idProduct=9008
+[  518.482615] usb 5-2: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+[  518.482623] usb 5-2: Product: QHSUSB__BULK
+[  518.482630] usb 5-2: Manufacturer: Qualcomm CDMA Technologies MSM
+[  519.106996] usb 5-2: USB disconnect, device number 25
+[  519.562811] usbcore: registered new interface driver usbserial
+[  519.562848] usbcore: registered new interface driver usbserial_generic
+[  519.562880] usbserial: USB Serial support registered for generic
+[  519.583817] usbcore: registered new interface driver qcserial
+[  519.583833] usbserial: USB Serial support registered for Qualcomm USB modem
+
+9008 = EDL mode
+
+After it's connected in this mode, if you write any commands or disconnect, 
+the only way to get back to a good state is to hold down power for ~15-30 seconds until you 
+get a full reboot 
+
+Digging more, I found: https://github.com/bkerler/edl and a number of other edl handlers.
+
+    Based on:
+        https://alephsecurity.com/2018/01/22/qualcomm-edl-1/
+
+    The base protocol is called "Sahara" and provides a way to upload a secondary bootloader 
+    program, which in a lot of cases speaks an xml based protocol called "firehose".
+
+    The main issue now is I don't know where I would get something like this - I'm not sure 
+    if this is something produced by the company or by Qualcomm itself, I suspect the latter, 
+    in which case it's most likely signed in some way which makes this difficult.
+
+Following the install directions of etl (making sure to blacklist disable qcserial), and running:
+
+Running edl printgpt (I addded some extra prints) gives:
+
+__main__ - Device detected :)
+Got:  bytearray(b'\x01\x00\x00\x000\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x04\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
+__main__ - Mode detected: sahara
+Device is in EDL mode .. continuing.
+------------------------
+HWID:              0x000520e100000000 (MSM_ID:0x000520e1,OEM_ID:0x0000,MODEL_ID:0x0000)
+PK_HASH:           0xcc3153a80293939b90d02d3bf8b23e0292e452fef662c74998421adad42a380f
+Serial:            XXXXXXXXXX (redacted)
+SBL Version:       0x00000000
+
+Library.sahara - Couldn't find a loader for given hwid and pkhash :(
+
+
+So... I think this means I have to find a signed binary, which may mean I'm sol here - still too
+scared of bricking to just blindly try uploading something.
+
+
+
     
 ============================================================================================
  Random
