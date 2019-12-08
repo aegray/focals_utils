@@ -147,6 +147,9 @@ After doing option 1, /dev/sdf stays around, but I haven't tried anything with i
 When I do try this, I strongly suspect I will need to do:
     modprobe g_mass_storage file=/dev/sdf stall=0 (to enable usb storage gadget)
 
+EDIT: after further reading, it appears this mode on qualcommm chips has an initial mass storage
+gadget to provide the driver for serial mode, so once the serial part is setup, it disables the 
+mass storage portion.  So, I'm semi doubting there is anything interesting here
 
 ============================================================================================
  Qualcomm edl mode
