@@ -20,10 +20,14 @@ Organization (or lack thereof):
     Additionally it has some example code for doing some things like generating notifications
     on the glasses
 
-    Note that because this controls the bluetooth connection to the glasses, it requires that you 
+    Because this controls the bluetooth connection to the glasses, it requires that you 
     first disconnect from the main application.  Additionally, most features won't be available
     when connected to this app (although I think it would be possible to recreate relatively 
     easily).
+    
+    Note that there are some missing files (the entire co.glassio package) as I didn't want to push 
+    anything to a public repo that could be argued is someone's IP.
+    
 
 * btmsgprotos - This contains protobuf definitions of the bluetooth messages for each software
     version, and diffs between the versions to see what got added
