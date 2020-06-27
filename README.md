@@ -61,12 +61,15 @@ Organization (or lack thereof):
         bluetooth message to the glasses.
 
         The main app is connect.py and acts as a command line - the following commands are valid:
+
             * pair - tell the glasses to pair with the loop device
+
             * exp <name> [key=value ...] - Start an experience with the given arguments.
                 Examples:
                     exp Balloons
                     exp "Media Player" filePath=/data/kmp
             * sexp <name> - Stop an experience that was previously started
+
             * conn {0,1} - Tell the glasses if the network is connected (example: conn 0)
                 - this is used with the service_network.py app - which acts as a socket manager
                 to facilitate the glasses communicating with the internet.
