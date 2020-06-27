@@ -33,7 +33,7 @@ Organization (or lack thereof):
     version, and diffs between the versions to see what got added
     
 * connector - This has notes on building a data connector, and some notes on actually 
-    communicating that's built, downloading firmware etc.
+    communicating once that's built, downloading firmware etc.
    
 * info - this just has a snapshot of fcc filings in case any useful information is in there
 
