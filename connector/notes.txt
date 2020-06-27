@@ -187,7 +187,7 @@ Digging more, I found: https://github.com/bkerler/edl and a number of other edl 
     if this is something produced by the company or by Qualcomm itself, I suspect the latter, 
     in which case it's most likely signed in some way which makes this difficult.
 
-Following the install directions of etl (making sure to blacklist disable qcserial), and running:
+Following the install directions of edl (making sure to blacklist disable qcserial), and running:
 
 Running edl printgpt (I addded some extra prints) gives:
 
@@ -210,17 +210,21 @@ scared of bricking to just blindly try uploading something.
 
 Update!!: 
 
-I found a package of unsigned bootloaders and after trying several (for a , successfully got 
-hooked up to the firehose interface, which allows me download anything from the emmc and 
-(theoretically) to upload my own versions.
+I found a package of unsigned bootloaders and after trying several (one for a similar but 
+not exactly matching device), and successfully got hooked up to the firehose interface, 
+which allows me download anything from the emmc and write to the filesystem.
 
-I've imaged off the entire emmc and found everything to be unencrypted, can now dig through the 
-operating system files and logs, including all the binaries.
+I've imaged off the entire emmc, and can now dig through the operating system files and logs, 
+    including all the binaries.
+
+Additionally I've spent some time with some of the binaries in ghidra, tracing out the application
+    calls.  However I'm a neophyte in reversing c++, so outside of understanding their api
+    more, I haven't ended up with anything fruitful that I could immediately make use of.
 
 
-Unfortunately, adb mode still shows up as locked.  I'm too afraid of messing up my focals
-to overwrite everything, but I was willing to overwrite individual blocks to try enabling it.
-This makes things semi complicated because, in order to be safe, I can only overwrite data,
+Unfortunately, I haven't figured out a way to unlock adb mode.  I'm too afraid of messing up my 
+focals to overwrite everything, but I was willing to overwrite individual blocks to try enabling 
+it.  This makes things semi complicated because, in order to be safe, I can only overwrite data,
 not add or delete.
 
 
