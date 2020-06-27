@@ -1,9 +1,9 @@
 # focals_utils
 
 
-This is a code+info dump of a side project I was working on for focals.  All the code runs
-locally, but I haven't had time to clean things up / package it in a way that would be generally
-usable.
+This is a code+info dump of a side project I was working on for focals smart glasses by north.  
+All the code runs locally, but I haven't had time to clean things up / package it in a way that 
+would be generally usable.
 
 Organization (or lack thereof):
 * android_apps/bluetooth_test2/ is an example android app that replaces the default 
