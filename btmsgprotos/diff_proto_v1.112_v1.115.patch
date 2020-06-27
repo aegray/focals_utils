@@ -1,0 +1,41 @@
+163a164,169
+>         message BcpV2 {
+>             required string endpointName = 1;
+>         
+>         }
+>         
+>         
+214c220
+<             optional DummyEmpty dummy_50 = 50;
+---
+>             optional BlackCoralBcpV2 bcpv2 = 50;
+255a262,267
+>         message BlackCoralBcpV2 {
+>             optional BcpV2 bcpv2 = 1;
+>         
+>         }
+>         
+>         
+504c516
+<             optional DummyEmpty dummy_40 = 40;
+---
+>             optional CompanionBcpV2 bcpv2 = 40;
+554a567,572
+>         message CompanionBcpV2 {
+>             optional BcpV2 bcpv2 = 1;
+>         
+>         }
+>         
+>         
+661a680
+>             optional FeatureSupportedByBlackCoral featureSupportedByBlackCoral = 4;
+845a865,871
+>             optional string mobileOs = 7;
+>         
+>         }
+>         
+>         
+>         message FeatureSupportedByBlackCoral {
+>             optional bool epAlignment = 1;
+867a894
+>             optional uint32 checksum = 4;

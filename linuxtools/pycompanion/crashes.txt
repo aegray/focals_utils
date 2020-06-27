@@ -1,0 +1,15 @@
+
+# possible overflows or at least places I've been able to crash:
+
+1) if you don't respond to StartFileTransfer requests and enough are open, it stops responding
+
+2) CaptureScreenshot with too much data in fileformat crashes screenshot -> not sure about this, 
+    it may just produce many diff snapshots
+
+3) CurrentTime, if you send too much data definitely crashes the clock updating in the background
+
+4) Sending invalid parameters to startExperience - especially "%s"*400 as key or value, I think I crashed the entire message service
+
+
+
+

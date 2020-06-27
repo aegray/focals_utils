@@ -1,0 +1,76 @@
+213c213
+<             optional DummyEmpty dummy_49 = 49;
+---
+>             optional BlackCoralShowcase showcase = 49;
+325a326,335
+>         message BlackCoralShowcase {
+>             optional StartShowcase startShowcase = 1;
+>             optional StopShowcase stopShowcase = 2;
+>             optional GetStories getStories = 3;
+>             optional StartStory startStory = 4;
+>             optional StopStory stopStory = 5;
+>         
+>         }
+>         
+>         
+492c502
+<             optional DummyEmpty dummy_38 = 38;
+---
+>             optional CompanionShowcase showcase = 38;
+626a637,643
+>         message CompanionShowcase {
+>             optional GetStoriesResponse getStoriesResponse = 1;
+>             optional StoryStatus storyStatus = 2;
+>         
+>         }
+>         
+>         
+907a925,935
+>         message GetStories {
+>         
+>         }
+>         
+>         
+>         message GetStoriesResponse {
+>             required string json = 1;
+>         
+>         }
+>         
+>         
+1634a1663,1673
+>         message StartShowcase {
+>         
+>         }
+>         
+>         
+>         message StartStory {
+>             required string contentUri = 1;
+>         
+>         }
+>         
+>         
+1674a1714,1737
+>         }
+>         
+>         
+>         message StopShowcase {
+>         
+>         }
+>         
+>         
+>         message StopStory {
+>         
+>         }
+>         
+>         
+>         message StoryStatus {
+>             required string contentUri = 1;
+>             required Status status = 2;
+>         
+>                 
+>                 enum Status {
+>                     STARTED = 0;
+>                     FAILED_TO_START = 1;
+>                     STOPPED = 2;
+>                 }
+>                 

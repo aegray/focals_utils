@@ -1,0 +1,21 @@
+503c503
+<             optional DummyEmpty dummy_39 = 39;
+---
+>             optional CompanionCamera camera = 39;
+554a555,560
+>         message CompanionCamera {
+>             optional Image image = 1;
+>         
+>         }
+>         
+>         
+960a967,973
+>         message Image {
+>             optional string fileName = 1;
+>             optional string suffix = 2;
+>         
+>         }
+>         
+>         
+1281a1295
+>             optional string previewText = 11;

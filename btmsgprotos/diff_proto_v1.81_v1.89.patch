@@ -1,0 +1,158 @@
+211,212c211,212
+<             optional DummyEmpty dummy_47 = 47;
+<             optional DummyEmpty dummy_48 = 48;
+---
+>             optional BlackCoralTemplatedSettings templatedSettings = 47;
+>             optional BlackCoralWonderland wonderland = 48;
+319a320,321
+>             optional RequestTaskSync requestTaskSync = 2;
+>             optional TaskSync taskSyncUpdate = 3;
+342a345,351
+>         message BlackCoralTemplatedSettings {
+>             optional SetSettings setSettings = 1;
+>             optional GetSettings getSettings = 2;
+>         
+>         }
+>         
+>         
+349a359,367
+>         message BlackCoralWonderland {
+>             optional SwitchToExitPupil switchToExitPupil = 1;
+>             optional EnableAllExitPupils enableAllExitPupils = 2;
+>             optional ExitPupilSelectionConfirmed exitPupilSelectionConfirmed = 3;
+>             optional ExitPupilSelectionRejected exitPupilSelectionRejected = 4;
+>         
+>         }
+>         
+>         
+372a391,392
+>             repeated string attendeeEmails = 9;
+>             optional bool isAllDay = 10;
+415a436,437
+>             optional string fileformat = 1;
+>             optional bool silent = 2;
+425a448,453
+>         message ClipText {
+>             required string text = 1;
+>         
+>         }
+>         
+>         
+461,463c489,491
+<             optional DummyEmpty dummy_35 = 35;
+<             optional DummyEmpty dummy_36 = 36;
+<             optional DummyEmpty dummy_37 = 37;
+---
+>             optional CompanionTemplatedSettings templatedSettings = 35;
+>             optional CompanionClipboard clipboard = 36;
+>             optional CompanionNoteTaker noteTaker = 37;
+516a545,550
+>         message CompanionClipboard {
+>             optional ClipText clipText = 1;
+>         
+>         }
+>         
+>         
+579a614,619
+>         message CompanionNoteTaker {
+>             optional TaskSyncResponse taskSyncResponse = 1;
+>         
+>         }
+>         
+>         
+602a643,649
+>         message CompanionTemplatedSettings {
+>             optional GetSettingsResponse getSettingsResponse = 1;
+>             optional SetSettingsResponse setSettingsResponse = 2;
+>         
+>         }
+>         
+>         
+654a702,706
+>         message EnableAllExitPupils {
+>         
+>         }
+>         
+>         
+713a766,775
+>         message ExitPupilSelectionConfirmed {
+>         
+>         }
+>         
+>         
+>         message ExitPupilSelectionRejected {
+>         
+>         }
+>         
+>         
+834a897,907
+>         message GetSettings {
+>         
+>         }
+>         
+>         
+>         message GetSettingsResponse {
+>             required string json = 1;
+>         
+>         }
+>         
+>         
+1179a1253
+>             optional bool isSilent = 10;
+1315a1390,1394
+>         message RequestTaskSync {
+>         
+>         }
+>         
+>         
+1381a1461,1472
+>         message SetSettings {
+>             required string json = 1;
+>         
+>         }
+>         
+>         
+>         message SetSettingsResponse {
+>             optional bool error = 1;
+>         
+>         }
+>         
+>         
+1593a1685,1698
+>         message SwitchToExitPupil {
+>             required ExitPupil ep = 1;
+>         
+>                 
+>                 enum ExitPupil {
+>                     EP1 = 0;
+>                     EP2 = 1;
+>                     EP3 = 2;
+>                     EP4 = 3;
+>                 }
+>                 
+>         }
+>         
+>         
+1594a1700,1721
+>         
+>         }
+>         
+>         
+>         message Task {
+>             required string id = 1;
+>             required string text = 2;
+>             required string creationTime = 3;
+>             optional string completionTime = 4;
+>         
+>         }
+>         
+>         
+>         message TaskSync {
+>             repeated Task tasks = 1;
+>         
+>         }
+>         
+>         
+>         message TaskSyncResponse {
+>             repeated Task tasks = 1;
+>             required int32 taskLimit = 2;

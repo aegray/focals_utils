@@ -1,0 +1,1873 @@
+
+syntax = "proto2";
+
+package focals;
+
+message DummyEmpty {
+}
+
+
+        
+        message AcceptExitPupilAlignment {
+        
+        }
+        
+        
+        message Account {
+            optional string accountId = 1;
+        
+        }
+        
+        
+        message ActivityState {
+            required Activity activity = 1;
+            required uint32 confidence = 2;
+            required string startDate = 3;
+        
+                
+                enum Activity {
+                    UNKNOWN = 0;
+                    STILL = 1;
+                    WALKING = 2;
+                    RUNNING = 3;
+                    BICYCLE = 4;
+                    VEHICLE = 5;
+                }
+                
+        }
+        
+        
+        message ActivityStateChanged {
+            required Activity activity = 1;
+        
+                
+                enum Activity {
+                    UNKNOWN = 0;
+                    STILL = 1;
+                    WALKING = 2;
+                    RUNNING = 3;
+                    BICYCLE = 4;
+                    VEHICLE = 5;
+                }
+                
+        }
+        
+        
+        message AddFavouriteContact {
+            required FavouriteContactDefinition favouriteContact = 1;
+        
+        }
+        
+        
+        message AddFavouriteContactResponse {
+            required bool success = 1;
+            optional FavouriteContact favouriteContact = 2;
+        
+        }
+        
+        
+        message AddNote {
+            required string text = 1;
+        
+        }
+        
+        
+        message AddToAppNotificationBlacklist {
+            required string appIdentifier = 1;
+            required string appName = 2;
+        
+        }
+        
+        
+        message AdjustExitPupilAlignment {
+            required exitpupilalignment_Direction direction = 1;
+            required float coarseFactor = 2;
+        
+        }
+        
+        
+        message AncsDeviceStatus {
+            required AncsStatus status = 1;
+        
+                
+                enum AncsStatus {
+                    LISTENING = 0;
+                    ENUMERATING = 1;
+                    PAIRING = 2;
+                    PAIRING_COMPLETE = 3;
+                    REGISTERING = 4;
+                    CONNECTED = 5;
+                }
+                
+        }
+        
+        
+        message AppAttributes {
+            required string bundleId = 1;
+            required string name = 2;
+        
+        }
+        
+        
+        message AppNotificationBlacklist {
+            repeated string appIdentifiers = 1;
+        
+        }
+        
+        
+        message AppNotificationFilter {
+            required string appIdentifier = 1;
+            required bool notificationsEnabled = 2;
+        
+        }
+        
+        
+        message AuthorizationStatus {
+            required string serviceName = 1;
+            required bool authorized = 2;
+            optional User user = 3;
+        
+        }
+        
+        
+        message Authorize {
+            required string serviceName = 1;
+            optional string authorizationCode = 2;
+            optional string redirectUri = 3;
+            optional string clientId = 4;
+            optional User user = 5;
+        
+        }
+        
+        
+        message AuthorizeResponse {
+            required string serviceName = 1;
+            required Result result = 2;
+        
+                
+                enum Result {
+                    SUCCESS = 0;
+                    FAILURE = 1;
+                }
+                
+        }
+        
+        
+        message BatteryState {
+            optional int32 konaBatteryLevel = 1;
+            optional int32 ringBatteryLevel = 2;
+            optional bool isKonaCharging = 3;
+        
+        }
+        
+        
+        message BlackCoral {
+            optional Handshake handshake = 1;
+            optional SocketOpenResponse socketOpenResponse = 2;
+            optional SocketCloseResponse socketCloseResponse = 3;
+            optional SocketDataChunk socketDataChunk = 4;
+            optional DummyEmpty dummy_5 = 5;
+            optional Notification notification = 6;
+            optional RemotePing remotePing = 7;
+            optional CurrentTime currentTime = 8;
+            optional CalibrateEyeTracking calibrateEyeTracking = 9;
+            optional StartInputDevicePairing startInputDevicePairing = 10;
+            optional CancelInputDevicePairing cancelInputDevicePairing = 11;
+            optional UnpairInputDevice unpairInputDevice = 12;
+            optional AppNotificationFilter appNotificationFilter = 13;
+            optional DummyEmpty dummy_14 = 14;
+            optional DummyEmpty dummy_15 = 15;
+            optional DismissNotification dismissNotification = 16;
+            optional DummyEmpty dummy_17 = 17;
+            optional GetHostByNameResponse getHostByNameResponse = 18;
+            optional SocketError socketError = 19;
+            optional BlackCoralSync sync = 20;
+            optional DummyEmpty dummy_21 = 21;
+            optional DummyEmpty dummy_22 = 22;
+            optional DummyEmpty dummy_23 = 23;
+            optional DummyEmpty dummy_24 = 24;
+            optional Settings settings = 25;
+            optional State state = 26;
+            optional StartExperience startExperience = 27;
+            optional StopExperience stopExperience = 28;
+            optional BlackCoralFileTransfer fileTransfer = 29;
+            optional BlackCoralUpdate update = 30;
+            optional FactoryReset factoryReset = 31;
+            optional CaptureLogs captureLogs = 32;
+            optional Calendar calendar = 33;
+            optional BlackCoralLocation location = 34;
+            optional BlackCoralExitPupilAlignment exitPupilAlignment = 35;
+            optional RefreshAuthTokenFailed refreshAuthTokenFailed = 36;
+            optional SendSmsResponse sendSmsResponse = 37;
+            optional BlackCoralSms sms = 38;
+            optional BlackCoralFeatures features = 39;
+            optional BlackCoralExternalAuthorization externalAuthorization = 40;
+            optional BlackCoralLocationSharingControl locationSharingControl = 41;
+            optional BlackCoralNavigation navigation = 42;
+            optional BlackCoralActivity activity = 43;
+            optional CaptureScreenshot captureScreenshot = 44;
+            optional BlackCoralFavouriteContacts favouriteContacts = 45;
+            optional BlackCoralNoteTaker noteTaker = 46;
+            optional BlackCoralTemplatedSettings templatedSettings = 47;
+            optional BlackCoralWonderland wonderland = 48;
+            optional BlackCoralShowcase showcase = 49;
+            optional DummyEmpty dummy_50 = 50;
+            optional DummyEmpty dummy_51 = 51;
+            optional DummyEmpty dummy_52 = 52;
+            optional DummyEmpty dummy_53 = 53;
+            optional DummyEmpty dummy_54 = 54;
+            optional DummyEmpty dummy_55 = 55;
+            optional DummyEmpty dummy_56 = 56;
+            optional DummyEmpty dummy_57 = 57;
+            optional DummyEmpty dummy_58 = 58;
+            optional DummyEmpty dummy_59 = 59;
+            optional DummyEmpty dummy_60 = 60;
+            optional DummyEmpty dummy_61 = 61;
+            optional DummyEmpty dummy_62 = 62;
+            optional DummyEmpty dummy_63 = 63;
+            optional DummyEmpty dummy_64 = 64;
+            optional DummyEmpty dummy_65 = 65;
+            optional DummyEmpty dummy_66 = 66;
+            optional DummyEmpty dummy_67 = 67;
+            optional DummyEmpty dummy_68 = 68;
+            optional DummyEmpty dummy_69 = 69;
+            optional DummyEmpty dummy_70 = 70;
+            optional DummyEmpty dummy_71 = 71;
+            optional DummyEmpty dummy_72 = 72;
+            optional DummyEmpty dummy_73 = 73;
+            optional DummyEmpty dummy_74 = 74;
+            optional DummyEmpty dummy_75 = 75;
+            optional DummyEmpty dummy_76 = 76;
+            optional DummyEmpty dummy_77 = 77;
+            optional DummyEmpty dummy_78 = 78;
+            optional DummyEmpty dummy_79 = 79;
+            optional DummyEmpty dummy_80 = 80;
+        
+        }
+        
+        
+        message BlackCoralActivity {
+            optional ActivityStateChanged activityStateChanged = 1;
+            optional CurrentActivityState currentActivityState = 2;
+        
+        }
+        
+        
+        message BlackCoralExitPupilAlignment {
+            optional StartExitPupilAlignment start = 1;
+            optional StopExitPupilAlignment stop = 2;
+            optional AdjustExitPupilAlignment adjust = 3;
+            optional AcceptExitPupilAlignment accept = 4;
+            optional ChangeExitPupilAlignmentStep changeStep = 5;
+        
+        }
+        
+        
+        message BlackCoralExternalAuthorization {
+            optional ProductMetadataRequest productMetadataRequest = 1;
+            optional Authorize authorize = 2;
+            optional RevokeAuthorization revokeAuthorization = 3;
+            optional ServiceAccessToken serviceAccessToken = 4;
+        
+        }
+        
+        
+        message BlackCoralFavouriteContacts {
+            optional GetFavouriteContactsList favouriteContactsList = 1;
+            optional AddFavouriteContact addFavouriteContact = 2;
+            optional RemoveFavouriteContact removeFavouriteContact = 3;
+        
+        }
+        
+        
+        message BlackCoralFeatures {
+            optional GetFeatureList featureList = 1;
+            optional SetEnabledFeatures setEnabledFeatures = 2;
+        
+        }
+        
+        
+        message BlackCoralFileTransfer {
+            optional StartFileTransferResponse startFileTransferResponse = 1;
+            optional FileChunkResponse fileChunkResponse = 2;
+        
+        }
+        
+        
+        message BlackCoralLocation {
+            optional Location location = 1;
+        
+        }
+        
+        
+        message BlackCoralLocationSharingControl {
+            optional StartLocationSharingResponse startLocationSharingResponse = 1;
+        
+        }
+        
+        
+        message BlackCoralNavigation {
+            optional StartNavigationResponse startNavigationResponse = 1;
+            optional StopNavigationResponse stopNavigationResponse = 2;
+            optional EstimateNavigationResponse estimateNavigationResponse = 3;
+            optional NavigationStatusUpdate navigationStatusUpdate = 4;
+        
+        }
+        
+        
+        message BlackCoralNoteTaker {
+            optional AddNote addNote = 1;
+            optional RequestTaskSync requestTaskSync = 2;
+            optional TaskSync taskSyncUpdate = 3;
+        
+        }
+        
+        
+        message BlackCoralShowcase {
+            optional StartShowcase startShowcase = 1;
+            optional StopShowcase stopShowcase = 2;
+            optional GetStories getStories = 3;
+            optional StartStory startStory = 4;
+            optional StopStory stopStory = 5;
+        
+        }
+        
+        
+        message BlackCoralSms {
+            optional Sms smsSync = 1;
+            optional Sms smsReceived = 2;
+            optional Sms smsUpdated = 3;
+            optional SmsSyncStarted syncStarted = 4;
+            optional SmsSyncCompleted syncCompleted = 5;
+            optional ContactInfoResponse contactInfoResponse = 6;
+        
+        }
+        
+        
+        message BlackCoralSync {
+            optional Settings settings = 1;
+            optional State state = 2;
+            optional FeatureSupportedByCompanion featureSupportedByCompanion = 3;
+        
+        }
+        
+        
+        message BlackCoralTemplatedSettings {
+            optional SetSettings setSettings = 1;
+            optional GetSettings getSettings = 2;
+        
+        }
+        
+        
+        message BlackCoralUpdate {
+            optional UpdateAvailable updateAvailable = 1;
+            optional CancelUpdate cancelUpdate = 2;
+        
+        }
+        
+        
+        message BlackCoralWonderland {
+            optional SwitchToExitPupil switchToExitPupil = 1;
+            optional EnableAllExitPupils enableAllExitPupils = 2;
+            optional ExitPupilSelectionConfirmed exitPupilSelectionConfirmed = 3;
+            optional ExitPupilSelectionRejected exitPupilSelectionRejected = 4;
+        
+        }
+        
+        
+        message Calendar {
+            optional CalendarSyncStart syncStart = 1;
+            optional CalendarSyncEnd syncEnd = 2;
+            optional CalendarData data = 3;
+        
+        }
+        
+        
+        message CalendarData {
+            repeated CalendarEvent event = 1;
+        
+        }
+        
+        
+        message CalendarEvent {
+            required string identifier = 1;
+            required string startDate = 2;
+            required string endDate = 3;
+            required string title = 4;
+            required string location = 5;
+            optional uint32 attendeeCount = 6;
+            optional string calendarId = 7;
+            optional uint32 rgbColor = 8;
+            repeated string attendeeEmails = 9;
+            optional bool isAllDay = 10;
+        
+        }
+        
+        
+        message CalendarSyncEnd {
+        
+        }
+        
+        
+        message CalendarSyncStart {
+        
+        }
+        
+        
+        message CalibrateEyeTracking {
+            optional Session session = 1;
+        
+                
+                enum Session {
+                    CALIBRATION = 0;
+                    RECENTER = 1;
+                }
+                
+        }
+        
+        
+        message CancelInputDevicePairing {
+        
+        }
+        
+        
+        message CancelUpdate {
+        
+        }
+        
+        
+        message CaptureLogs {
+            optional string reportId = 1;
+        
+        }
+        
+        
+        message CaptureScreenshot {
+            optional string fileformat = 1;
+            optional bool silent = 2;
+        
+        }
+        
+        
+        message ChangeExitPupilAlignmentStep {
+            required exitpupilalignment_Step step = 1;
+        
+        }
+        
+        
+        message ClipText {
+            required string text = 1;
+        
+        }
+        
+        
+        message Companion {
+            optional HandshakeResponse handshakeResponse = 1;
+            optional SocketOpen socketOpen = 2;
+            optional SocketClose socketClose = 3;
+            optional SocketDataChunk socketDataChunk = 4;
+            optional DummyEmpty dummy_5 = 5;
+            optional DismissNotification dismissNotification = 6;
+            optional InputDevicePairingStatusChanged inputDevicePairingStatusChanged = 7;
+            optional InputDeviceStatus inputDeviceStatus = 8;
+            optional AppAttributes appAttributes = 9;
+            optional GetHostByName getHostByName = 10;
+            optional SocketError socketError = 11;
+            optional BatteryState batteryState = 12;
+            optional DummyEmpty dummy_13 = 13;
+            optional RefreshAuthToken refreshAuthToken = 14;
+            optional LaunchableExperiences launchableExperiences = 15;
+            optional CompanionFileTransfer fileTransfer = 16;
+            optional CompanionUpdate update = 17;
+            optional FactoryResetResponse factoryResetResponse = 18;
+            optional CompanionSync sync = 19;
+            optional Poke poke = 20;
+            optional CompanionLocation location = 21;
+            optional CompanionExitPupilAlignment exitPupilAlignment = 22;
+            optional AncsDeviceStatus ancsStatus = 23;
+            optional SendSms sendSms = 24;
+            optional CompanionSms sms = 25;
+            optional CompanionFeatures features = 26;
+            optional CompanionExternalAuthorization externalAuthorization = 27;
+            optional CompanionLocationSharingControl locationSharingControl = 28;
+            optional CompanionNotification notification = 29;
+            optional CompanionNavigation navigation = 30;
+            optional CompanionActivity activity = 31;
+            optional Screenshot screenshot = 32;
+            optional CompanionFavouriteContacts favouriteContacts = 33;
+            optional IntentionalReboot intentionalReboot = 34;
+            optional CompanionTemplatedSettings templatedSettings = 35;
+            optional CompanionClipboard clipboard = 36;
+            optional CompanionNoteTaker noteTaker = 37;
+            optional CompanionShowcase showcase = 38;
+            optional CompanionCamera camera = 39;
+            optional DummyEmpty dummy_40 = 40;
+            optional DummyEmpty dummy_41 = 41;
+            optional DummyEmpty dummy_42 = 42;
+            optional DummyEmpty dummy_43 = 43;
+            optional DummyEmpty dummy_44 = 44;
+            optional DummyEmpty dummy_45 = 45;
+            optional DummyEmpty dummy_46 = 46;
+            optional DummyEmpty dummy_47 = 47;
+            optional DummyEmpty dummy_48 = 48;
+            optional DummyEmpty dummy_49 = 49;
+            optional DummyEmpty dummy_50 = 50;
+            optional DummyEmpty dummy_51 = 51;
+            optional DummyEmpty dummy_52 = 52;
+            optional DummyEmpty dummy_53 = 53;
+            optional DummyEmpty dummy_54 = 54;
+            optional DummyEmpty dummy_55 = 55;
+            optional DummyEmpty dummy_56 = 56;
+            optional DummyEmpty dummy_57 = 57;
+            optional DummyEmpty dummy_58 = 58;
+            optional DummyEmpty dummy_59 = 59;
+            optional DummyEmpty dummy_60 = 60;
+            optional DummyEmpty dummy_61 = 61;
+            optional DummyEmpty dummy_62 = 62;
+            optional DummyEmpty dummy_63 = 63;
+            optional DummyEmpty dummy_64 = 64;
+            optional DummyEmpty dummy_65 = 65;
+            optional DummyEmpty dummy_66 = 66;
+            optional DummyEmpty dummy_67 = 67;
+            optional DummyEmpty dummy_68 = 68;
+            optional DummyEmpty dummy_69 = 69;
+            optional DummyEmpty dummy_70 = 70;
+            optional DummyEmpty dummy_71 = 71;
+            optional DummyEmpty dummy_72 = 72;
+            optional DummyEmpty dummy_73 = 73;
+            optional DummyEmpty dummy_74 = 74;
+            optional DummyEmpty dummy_75 = 75;
+            optional DummyEmpty dummy_76 = 76;
+            optional DummyEmpty dummy_77 = 77;
+            optional DummyEmpty dummy_78 = 78;
+            optional DummyEmpty dummy_79 = 79;
+            optional DummyEmpty dummy_80 = 80;
+        
+        }
+        
+        
+        message CompanionActivity {
+            optional GetCurrentActivityState getCurrentActivityState = 1;
+        
+        }
+        
+        
+        message CompanionCamera {
+            optional Image image = 1;
+        
+        }
+        
+        
+        message CompanionClipboard {
+            optional ClipText clipText = 1;
+        
+        }
+        
+        
+        message CompanionExitPupilAlignment {
+            optional ExitPupilAlignmentStarted started = 1;
+            optional ExitPupilAlignmentStopped stopped = 2;
+            optional ExitPupilAlignmentEdge edge = 3;
+            optional ExitPupilAlignmentStep step = 4;
+        
+        }
+        
+        
+        message CompanionExternalAuthorization {
+            optional ProductMetadataResponse productMetadataResponse = 1;
+            optional AuthorizeResponse authorizeResponse = 2;
+            optional AuthorizationStatus authorizationStatus = 3;
+            optional RefreshServiceAccessToken refreshServiceAccessToken = 4;
+        
+        }
+        
+        
+        message CompanionFavouriteContacts {
+            optional GetFavouriteContactsListResponse favouriteContactsListResponse = 1;
+            optional AddFavouriteContactResponse addFavouriteContactResponse = 2;
+            optional RemoveFavouriteContactResponse removeFavouriteContactResponse = 3;
+        
+        }
+        
+        
+        message CompanionFeatures {
+            optional GetFeatureListResponse featureListResponse = 1;
+        
+        }
+        
+        
+        message CompanionFileTransfer {
+            optional StartFileTransfer startFileTransfer = 1;
+            optional StopFileTransfer stopFileTransfer = 2;
+            optional FileChunkRequest fileChunkRequest = 3;
+        
+        }
+        
+        
+        message CompanionLocation {
+            optional GetLocation getLocation = 1;
+            optional SubscribeLocationUpdates subscribe = 2;
+            optional UnsubscribeLocationUpdates unsubscribe = 3;
+        
+        }
+        
+        
+        message CompanionLocationSharingControl {
+            optional StartLocationSharing startLocationSharing = 1;
+        
+        }
+        
+        
+        message CompanionNavigation {
+            optional StartNavigation startNavigation = 1;
+            optional StopNavigation stopNavigation = 2;
+            optional EstimateNavigation estimateNavigation = 3;
+            optional RequestStatusUpdate statusUpdate = 4;
+        
+        }
+        
+        
+        message CompanionNoteTaker {
+            optional TaskSyncResponse taskSyncResponse = 1;
+        
+        }
+        
+        
+        message CompanionNotification {
+            optional AddToAppNotificationBlacklist addToAppNotificationBlacklist = 1;
+            optional PerformNotificationAction performNotificationAction = 2;
+        
+        }
+        
+        
+        message CompanionShowcase {
+            optional GetStoriesResponse getStoriesResponse = 1;
+            optional StoryStatus storyStatus = 2;
+        
+        }
+        
+        
+        message CompanionSms {
+            optional MarkSmsRead markRead = 1;
+            optional SyncSms sync = 2;
+            optional ContactInfoRequest contactInfoRequest = 3;
+        
+        }
+        
+        
+        message CompanionSync {
+            optional KonaDeviceInformation deviceInfo = 1;
+            optional AncsDeviceStatus ancsStatus = 2;
+            repeated AuthorizationStatus authorizationStatus = 3;
+        
+        }
+        
+        
+        message CompanionTemplatedSettings {
+            optional GetSettingsResponse getSettingsResponse = 1;
+            optional SetSettingsResponse setSettingsResponse = 2;
+        
+        }
+        
+        
+        message CompanionUpdate {
+            optional UpdateStatus updateStatus = 1;
+        
+        }
+        
+        
+        message ConnectingMetadata {
+            required string macAddress = 1;
+            optional string friendlyName = 2;
+            required string profileVersion = 3;
+        
+        }
+        
+        
+        message ContactInfo {
+            required string name = 1;
+            required string phoneNumber = 2;
+        
+        }
+        
+        
+        message ContactInfoRequest {
+            required string name = 1;
+        
+        }
+        
+        
+        message ContactInfoResponse {
+            repeated ContactInfo contactInfo = 1;
+        
+        }
+        
+        
+        message CurrentActivityState {
+            repeated ActivityState activityState = 1;
+        
+        }
+        
+        
+        message CurrentTime {
+            required string time = 1;
+            required string timeZone = 2;
+        
+        }
+        
+        
+        message DismissNotification {
+            required string identifier = 1;
+        
+        }
+        
+        
+        message EnableAllExitPupils {
+        
+        }
+        
+        
+        message EstimateNavigation {
+            required NavigationInfo navigationInfo = 1;
+            optional string contextId = 2;
+        
+        }
+        
+        
+        message EstimateNavigationResponse {
+            required EstimateNavigationResponseData data = 1;
+            optional string contextId = 2;
+        
+        }
+        
+        
+        message EstimateNavigationResponseData {
+            optional TripEstimate tripEstimate = 1;
+            optional NavigationEstimateError estimateError = 2;
+        
+                
+                enum NavigationEstimateError {
+                    OTHER = 0;
+                    NO_INTERNET = 1;
+                    PERMISSION_DENIED = 2;
+                }
+                
+        }
+        
+        
+        message ExitPupilAlignmentEdge {
+            required int32 edges = 1;
+        
+        }
+        
+        
+        message ExitPupilAlignmentStarted {
+            optional uint32 version = 1;
+        
+        }
+        
+        
+        message ExitPupilAlignmentStep {
+            required exitpupilalignment_Step step = 1;
+        
+        }
+        
+        
+        message ExitPupilAlignmentStopped {
+            optional Result result = 1;
+        
+                
+                enum Result {
+                    SUCCESS = 1;
+                    FAILURE = 2;
+                    CANCEL = 3;
+                }
+                
+        }
+        
+        
+        message ExitPupilSelectionConfirmed {
+        
+        }
+        
+        
+        message ExitPupilSelectionRejected {
+        
+        }
+        
+        
+        message Experience {
+            required string name = 1;
+            repeated string parameterNames = 2;
+            repeated ExperienceParameter parameters = 3;
+        
+        }
+        
+        
+        message ExperienceParameter {
+            required string name = 1;
+            optional string defaultValue = 2;
+        
+        }
+        
+        
+        message FactoryReset {
+        
+        }
+        
+        
+        message FactoryResetResponse {
+        
+        }
+        
+        
+        message FavouriteContact {
+            required string id = 1;
+            required string name = 2;
+            required string phone = 3;
+        
+        }
+        
+        
+        message FavouriteContactDefinition {
+            required string name = 1;
+            required string phone = 2;
+        
+        }
+        
+        
+        message FeatureDefinition {
+            required string id = 1;
+            required string name = 2;
+            required bool enabled = 3;
+            optional string description = 4;
+            optional bool visible = 5;
+            optional bool editable = 6;
+        
+        }
+        
+        
+        message FeatureSupportedByCompanion {
+            optional bool locationSharing = 1;
+        
+        }
+        
+        
+        message FileChunkRequest {
+            required string id = 1;
+            required uint32 startByte = 2;
+            required uint32 length = 3;
+        
+        }
+        
+        
+        message FileChunkResponse {
+            required string id = 1;
+            required filetransfer_Status status = 2;
+            required uint32 startByte = 3;
+        
+        }
+        
+        
+        message GetCurrentActivityState {
+        
+        }
+        
+        
+        message GetFavouriteContactsList {
+        
+        }
+        
+        
+        message GetFavouriteContactsListResponse {
+            repeated FavouriteContact favouriteContacts = 1;
+            required int32 favouriteLimit = 2;
+        
+        }
+        
+        
+        message GetFeatureList {
+        
+        }
+        
+        
+        message GetFeatureListResponse {
+            repeated FeatureDefinition featureDefinition = 1;
+        
+        }
+        
+        
+        message GetHostByName {
+            required string name = 1;
+        
+        }
+        
+        
+        message GetHostByNameResponse {
+            required string name = 1;
+            required Status status = 2;
+            optional string host = 3;
+            optional int32 errorCode = 4;
+        
+        }
+        
+        
+        message GetLocation {
+        
+        }
+        
+        
+        message GetSettings {
+        
+        }
+        
+        
+        message GetSettingsResponse {
+            required string json = 1;
+        
+        }
+        
+        
+        message GetStories {
+        
+        }
+        
+        
+        message GetStoriesResponse {
+            required string json = 1;
+        
+        }
+        
+        
+        message Handshake {
+            required uint32 protocolMajorVersion = 1;
+            required uint32 protocolMinorVersion = 2;
+        
+        }
+        
+        
+        message HandshakeResponse {
+            required Result result = 1;
+            required string softwareVersion = 2;
+            required uint32 protocolMajorVersion = 3;
+            required uint32 protocolMinorVersion = 4;
+            required uint32 requiredProtocolMajorVersion = 5;
+            required uint32 requiredProtocolMinorVersion = 6;
+        
+                
+                enum Result {
+                    SUCCESS = 0;
+                    BLACK_CORAL_UPDATE_REQUIRED = 1;
+                    COMPANION_UPDATE_REQUIRED = 2;
+                }
+                
+        }
+        
+        
+        message Image {
+            optional string fileName = 1;
+            optional string suffix = 2;
+        
+        }
+        
+        
+        message InputDevicePairingStatusChanged {
+            required PairingStatus status = 1;
+        
+                
+                enum PairingStatus {
+                    NOT_PAIRED = 0;
+                    PAIRING = 1;
+                    PAIRED = 2;
+                }
+                
+        }
+        
+        
+        message InputDeviceStatus {
+            required string name = 1;
+            required ConnectionStatus status = 2;
+            optional SearchingMetadata searchingMeta = 3;
+            optional ConnectingMetadata connectingMeta = 4;
+            optional RegisteringMetadata registeringMeta = 5;
+        
+                
+                enum ConnectionStatus {
+                    DISCONNECTED = 0;
+                    CONNECTED = 1;
+                    SEARCHING = 2;
+                    CONNECTING = 3;
+                    REGISTERING = 4;
+                }
+                
+        }
+        
+        
+        message IntentionalReboot {
+            required Reason reason = 1;
+        
+                
+                enum Reason {
+                    USER_RESET = 0;
+                    SOFTWARE_UPDATE = 1;
+                    FEATURE_CHANGE = 2;
+                }
+                
+        }
+        
+        
+        message KonaDeviceInformation {
+            required string id = 1;
+            required string softwareVersion = 2;
+            required string hardwareVersion = 3;
+        
+        }
+        
+        
+        message LaunchableExperiences {
+            repeated Experience experiences = 1;
+        
+        }
+        
+        
+        message Location {
+            required Status status = 1;
+            optional Position position = 2;
+        
+                
+                message Position {
+                    required double latitude = 1;
+                    required double longitude = 2;
+                    optional float accuracy = 3;
+                    optional string timestamp = 4;
+                
+                }
+                
+                
+                enum Status {
+                    OK = 0;
+                    PERMISSION_DENIED = 1;
+                    LOCATION_UNAVAILABLE = 2;
+                }
+                
+        }
+        
+        
+        message MarkSmsRead {
+            required string id = 1;
+        
+        }
+        
+        
+        message NavigationInfo {
+            optional Position source = 1;
+            required Position destination = 2;
+            required NavigationMode navMode = 3;
+            optional NavigationFilter navFilter = 4;
+        
+                
+                enum NavigationFilter {
+                    TOLL_ROADS = 0;
+                    RESTRICTED_ROADS = 1;
+                    FREEWAYS = 2;
+                    FERRIES = 3;
+                    TUNNELS = 4;
+                }
+                
+                
+                enum NavigationMode {
+                    DRIVING = 0;
+                    CYCLING = 1;
+                    WALKING = 2;
+                }
+                
+        }
+        
+        
+        message NavigationStatusUpdate {
+            optional NavigationError navigationError = 1;
+            optional Arrived arrived = 2;
+            optional StatusResponse statusResponse = 3;
+            optional Status statusUpdate = 4;
+            optional RouteLeg routeLegProgress = 5;
+            optional StatusUpdateResponse statusUpdateResponse = 6;
+            optional RerouteStatus rerouteStatusUpdate = 7;
+        
+                
+                message Arrived {
+                
+                }
+                
+                
+                enum NavigationError {
+                    OTHER = 0;
+                    GPS_LOST = 1;
+                    REROUTING_FAILED = 2;
+                    LOGOUT = 3;
+                }
+                
+                
+                message RerouteStatus {
+                    required RerouteStatus status = 1;
+                
+                        
+                        enum Reroute {
+                            REROUTE_STARTED = 0;
+                            REROUTE_SUCCEEDED = 1;
+                        }
+                        
+                }
+                
+                
+                message RouteLeg {
+                    required RouteStep currentStep = 1;
+                    optional RouteStep upcomingStep = 2;
+                    required TripEstimate tripEstimate = 3;
+                    required bool hasManeuverVoiceData = 4;
+                    required int32 distanceRemaining = 5;
+                    optional string instructionText = 6;
+                
+                }
+                
+                
+                message RouteStep {
+                    required RouteStep maneuverType = 1;
+                    required RouteStep maneuverDirection = 2;
+                    required string streetName = 3;
+                    optional RouteStep drivingSide = 4;
+                    optional RouteStep laneIndication = 5;
+                    optional uint32 exitIndex = 6;
+                    repeated string exitNames = 7;
+                    optional double exitAngle = 8;
+                
+                        
+                        enum DrivingSide {
+                            DRIVINGSIDE_LEFT = 0;
+                            DRIVINGSIDE_RIGHT = 1;
+                        }
+                        
+                        
+                        enum LaneIndication {
+                            LANEINDICATION_SHARP_RIGHT = 0;
+                            LANEINDICATION_RIGHT = 1;
+                            LANEINDICATION_SLIGHT_RIGHT = 2;
+                            LANEINDICATION_STRAIGHT_AHEAD = 3;
+                            LANEINDICATION_SLIGHT_LEFT = 4;
+                            LANEINDICATION_LEFT = 5;
+                            LANEINDICATION_SHARP_LEFT = 6;
+                            LANEINDICATION_UTURN = 7;
+                        }
+                        
+                        
+                        enum ManeuverDirection {
+                            DIRECTION_NONE = 0;
+                            DIRECTION_SHARP_RIGHT = 1;
+                            DIRECTION_RIGHT = 2;
+                            DIRECTION_SLIGHT_RIGHT = 3;
+                            DIRECTION_STRAIGHT_AHEAD = 4;
+                            DIRECTION_SLIGHT_LEFT = 5;
+                            DIRECTION_LEFT = 6;
+                            DIRECTION_SHARP_LEFT = 7;
+                            DIRECTION_UTURN = 8;
+                        }
+                        
+                        
+                        enum ManeuverType {
+                            TYPE_NONE = 0;
+                            TYPE_DEPART = 1;
+                            TYPE_TURN = 2;
+                            TYPE_CONTINUE = 3;
+                            TYPE_PASS_NAME_CHANGE = 4;
+                            TYPE_MERGE = 5;
+                            TYPE_TAKE_ON_RAMP = 6;
+                            TYPE_TAKE_OFF_RAMP = 7;
+                            TYPE_REACH_FORK = 8;
+                            TYPE_REACH_END = 9;
+                            TYPE_USE_LANE = 10;
+                            TYPE_TAKE_ROUNDABOUT = 11;
+                            TYPE_TAKE_ROTARY = 12;
+                            TYPE_TURN_AT_ROUNDABOUT = 13;
+                            TYPE_EXIT_ROUNDABOUT = 14;
+                            TYPE_EXIT_ROTARY = 15;
+                            TYPE_HEED_WARNING = 16;
+                            TYPE_ARRIVE = 17;
+                            TYPE_PASSWAYPOINT = 18;
+                        }
+                        
+                }
+                
+                
+                message Status {
+                    required Status maneuverType = 1;
+                    required Status maneuverDirection = 2;
+                    required string upcomingStreetName = 3;
+                    required int32 distanceToManeuver = 4;
+                    required TripEstimate tripEstimate = 5;
+                    required bool hasManeuverVoiceData = 6;
+                    optional string maneuverText = 7;
+                    optional Status drivingSide = 8;
+                    optional Status laneIndication = 9;
+                
+                        
+                        enum DrivingSide {
+                            DRIVINGSIDE_LEFT = 0;
+                            DRIVINGSIDE_RIGHT = 1;
+                        }
+                        
+                        
+                        enum LaneIndication {
+                            LANEINDICATION_SHARP_RIGHT = 0;
+                            LANEINDICATION_RIGHT = 1;
+                            LANEINDICATION_SLIGHT_RIGHT = 2;
+                            LANEINDICATION_STRAIGHT_AHEAD = 3;
+                            LANEINDICATION_SLIGHT_LEFT = 4;
+                            LANEINDICATION_LEFT = 5;
+                            LANEINDICATION_SHARP_LEFT = 6;
+                            LANEINDICATION_UTURN = 7;
+                        }
+                        
+                        
+                        enum ManeuverDirection {
+                            DIRECTION_NONE = 0;
+                            DIRECTION_SHARP_RIGHT = 1;
+                            DIRECTION_RIGHT = 2;
+                            DIRECTION_SLIGHT_RIGHT = 3;
+                            DIRECTION_STRAIGHT_AHEAD = 4;
+                            DIRECTION_SLIGHT_LEFT = 5;
+                            DIRECTION_LEFT = 6;
+                            DIRECTION_SHARP_LEFT = 7;
+                            DIRECTION_UTURN = 8;
+                        }
+                        
+                        
+                        enum ManeuverType {
+                            TYPE_NONE = 0;
+                            TYPE_DEPART = 1;
+                            TYPE_TURN = 2;
+                            TYPE_CONTINUE = 3;
+                            TYPE_PASS_NAME_CHANGE = 4;
+                            TYPE_MERGE = 5;
+                            TYPE_TAKE_ON_RAMP = 6;
+                            TYPE_TAKE_OFF_RAMP = 7;
+                            TYPE_REACH_FORK = 8;
+                            TYPE_REACH_END = 9;
+                            TYPE_USE_LANE = 10;
+                            TYPE_TAKE_ROUNDABOUT = 11;
+                            TYPE_TAKE_ROTARY = 12;
+                            TYPE_TURN_AT_ROUNDABOUT = 13;
+                            TYPE_EXIT_ROUNDABOUT = 14;
+                            TYPE_EXIT_ROTARY = 15;
+                            TYPE_HEED_WARNING = 16;
+                            TYPE_ARRIVE = 17;
+                            TYPE_PASSWAYPOINT = 18;
+                        }
+                        
+                }
+                
+                
+                message StatusResponse {
+                    required Status status = 1;
+                    optional string contextId = 2;
+                
+                }
+                
+                
+                message StatusUpdateResponse {
+                    required RouteLeg routeLegProgress = 1;
+                    optional string contextId = 2;
+                
+                }
+                
+        }
+        
+        
+        message Notification {
+            required string identifier = 1;
+            required string title = 2;
+            required string text = 3;
+            required string time = 4;
+            optional string appIdentifier = 5;
+            optional string appName = 6;
+            optional string appIconFileId = 7;
+            repeated NotificationAction actions = 8;
+            optional bool isUpdate = 9;
+            optional bool isSilent = 10;
+            optional string previewText = 11;
+        
+        }
+        
+        
+        message NotificationAction {
+            required string key = 1;
+            required string actionIconFileId = 2;
+            required string title = 3;
+            repeated RemoteInput inputs = 4;
+        
+        }
+        
+        
+        message NotificationDisplay {
+            required DisplayLevel level = 1;
+        
+                
+                enum DisplayLevel {
+                    REDUCED = 0;
+                    FULL = 1;
+                    AUDIO = 2;
+                }
+                
+        }
+        
+        
+        message ParameterEntry {
+            required string key = 1;
+            required string value = 2;
+        
+        }
+        
+        
+        message PerformNotificationAction {
+            required string notificationIdentifier = 1;
+            required string actionKey = 2;
+            repeated RemoteInputResult result = 3;
+        
+        }
+        
+        
+        message PlayChime {
+        
+        }
+        
+        
+        message Poke {
+        
+        }
+        
+        
+        message Position {
+            required double latitude = 1;
+            required double longitude = 2;
+        
+        }
+        
+        
+        message ProductMetadataRequest {
+            required string serviceName = 1;
+        
+        }
+        
+        
+        message ProductMetadataResponse {
+            required string serviceName = 1;
+            optional string productId = 2;
+            optional string deviceSerialNumber = 3;
+            optional string codeChallenge = 4;
+        
+        }
+        
+        
+        message RefreshAuthToken {
+        
+        }
+        
+        
+        message RefreshAuthTokenFailed {
+        
+        }
+        
+        
+        message RefreshServiceAccessToken {
+            required string serviceName = 1;
+        
+        }
+        
+        
+        message RegisteringMetadata {
+            required uint32 percentComplete = 1;
+        
+        }
+        
+        
+        message RemoteInput {
+            required string key = 1;
+            required bool allowsFreeForm = 2;
+            required string label = 3;
+            repeated string smartChoices = 4;
+        
+        }
+        
+        
+        message RemoteInputResult {
+            required string key = 1;
+            required string result = 2;
+        
+        }
+        
+        
+        message RemotePing {
+            optional string payload = 1;
+        
+        }
+        
+        
+        message RemoveFavouriteContact {
+            required string id = 1;
+        
+        }
+        
+        
+        message RemoveFavouriteContactResponse {
+            required bool success = 1;
+            optional string id = 2;
+        
+        }
+        
+        
+        message RequestStatusUpdate {
+            optional string contextId = 1;
+        
+        }
+        
+        
+        message RequestTaskSync {
+        
+        }
+        
+        
+        message RevokeAuthorization {
+            required string serviceName = 1;
+        
+        }
+        
+        
+        message Screenshot {
+        
+        }
+        
+        
+        message SearchingMetadata {
+            optional uint32 numDevices = 1;
+            optional uint32 percentConnectionScore = 2;
+        
+        }
+        
+        
+        message SendSms {
+            required string recipient = 1;
+            required string text = 2;
+            optional string contextId = 3;
+        
+        }
+        
+        
+        message SendSmsResponse {
+            required Result result = 1;
+            optional string contextId = 2;
+        
+                
+                enum Result {
+                    SUCCESS = 0;
+                    FAILURE = 1;
+                }
+                
+        }
+        
+        
+        message ServiceAccessToken {
+            required string serviceName = 1;
+            required string bearerToken = 2;
+            required string refreshToken = 3;
+            optional Result result = 4;
+        
+                
+                enum Result {
+                    SUCCESS = 0;
+                    FAILURE = 1;
+                }
+                
+        }
+        
+        
+        message SetAuthToken {
+            optional string authToken = 1;
+        
+        }
+        
+        
+        message SetEnabledFeatures {
+            repeated string id = 1;
+        
+        }
+        
+        
+        message SetSettings {
+            required string json = 1;
+        
+        }
+        
+        
+        message SetSettingsResponse {
+            optional bool error = 1;
+        
+        }
+        
+        
+        message SetUiCenterOffset {
+            required int32 xOffset = 1;
+            required int32 yOffset = 2;
+        
+        }
+        
+        
+        message Settings {
+            optional string cloudHost = 1;
+            optional bool soundOnRingClick = 2;
+            optional SetUiCenterOffset setUiCenterOffset = 3;
+            optional NotificationDisplay notificationDisplay = 4;
+            optional AppNotificationBlacklist appNotificationBlacklist = 5;
+            optional float volume = 6;
+            optional PlayChime playChime = 7;
+            optional bool preferFahrenheit = 8;
+            optional bool autoDetectDriving = 9;
+        
+        }
+        
+        
+        message Sms {
+            required string id = 1;
+            required string senderName = 2;
+            required string senderNumber = 3;
+            required string timestamp = 4;
+            required string text = 5;
+            optional bool hasNonTextAttachments = 6;
+            optional bool read = 7;
+        
+        }
+        
+        
+        message SmsSyncCompleted {
+        
+        }
+        
+        
+        message SmsSyncStarted {
+        
+        }
+        
+        
+        message SocketClose {
+            required int32 streamId = 1;
+        
+        }
+        
+        
+        message SocketCloseResponse {
+            required int32 streamId = 1;
+            required Status status = 2;
+            optional int32 errorCode = 3;
+        
+        }
+        
+        
+        message SocketDataChunk {
+            required int32 streamId = 1;
+        
+        }
+        
+        
+        message SocketError {
+            required int32 streamId = 1;
+            required int32 errorCode = 2;
+        
+        }
+        
+        
+        message SocketOpen {
+            required int32 streamId = 1;
+            required string host = 2;
+            optional int32 port = 3;
+        
+        }
+        
+        
+        message SocketOpenResponse {
+            required int32 streamId = 1;
+            required Status status = 2;
+            optional int32 errorCode = 3;
+        
+        }
+        
+        
+        message StartExitPupilAlignment {
+            optional uint32 version = 1;
+        
+        }
+        
+        
+        message StartExperience {
+            required string name = 1;
+            repeated ParameterEntry parameters = 2;
+        
+        }
+        
+        
+        message StartFileTransfer {
+            required string id = 1;
+        
+        }
+        
+        
+        message StartFileTransferResponse {
+            required string id = 1;
+            required filetransfer_Status status = 2;
+            optional uint32 length = 3;
+            optional uint32 checksum = 4;
+        
+        }
+        
+        
+        message StartInputDevicePairing {
+        
+        }
+        
+        
+        message StartLocationSharing {
+            required string contextId = 1;
+            required uint32 duration = 2;
+        
+        }
+        
+        
+        message StartLocationSharingResponse {
+            required Result result = 1;
+            required string contextId = 2;
+            optional string webAddress = 3;
+        
+                
+                enum Result {
+                    SUCCESS = 0;
+                    FAILURE = 1;
+                }
+                
+        }
+        
+        
+        message StartNavigation {
+            required NavigationInfo navigationInfo = 1;
+            optional string contextId = 2;
+        
+        }
+        
+        
+        message StartNavigationResponse {
+            required Result result = 1;
+            optional string contextId = 2;
+        
+                
+                enum Result {
+                    SUCCESS = 0;
+                    FAILURE_NO_INTERNET = 1;
+                    FAILURE_PERMISSION_DENIED = 2;
+                    FAILURE_OTHER = 3;
+                }
+                
+        }
+        
+        
+        message StartShowcase {
+        
+        }
+        
+        
+        message StartStory {
+            required string contentUri = 1;
+        
+        }
+        
+        
+        message State {
+            optional SetAuthToken setAuthToken = 1;
+            optional bool isNetReachable = 2;
+            optional Account account = 3;
+            optional string companionId = 4;
+            optional bool isCalendarEnabled = 5;
+        
+        }
+        
+        
+        enum Status {
+            Status_OK = 0;
+            Status_ERROR = 1;
+        }
+        
+        
+        message StopExitPupilAlignment {
+        
+        }
+        
+        
+        message StopExperience {
+            required string name = 1;
+        
+        }
+        
+        
+        message StopFileTransfer {
+            required string id = 1;
+        
+        }
+        
+        
+        message StopNavigation {
+        
+        }
+        
+        
+        message StopNavigationResponse {
+        
+        }
+        
+        
+        message StopShowcase {
+        
+        }
+        
+        
+        message StopStory {
+        
+        }
+        
+        
+        message StoryStatus {
+            required string contentUri = 1;
+            required Status status = 2;
+        
+                
+                enum Status {
+                    STARTED = 0;
+                    FAILED_TO_START = 1;
+                    STOPPED = 2;
+                }
+                
+        }
+        
+        
+        message SubscribeLocationUpdates {
+            optional uint32 minimumTimeDelay = 1;
+            optional float minimumDistanceDisplacement = 2;
+        
+        }
+        
+        
+        message SwitchToExitPupil {
+            required ExitPupil ep = 1;
+        
+                
+                enum ExitPupil {
+                    EP1 = 0;
+                    EP2 = 1;
+                    EP3 = 2;
+                    EP4 = 3;
+                }
+                
+        }
+        
+        
+        message SyncSms {
+        
+        }
+        
+        
+        message Task {
+            required string id = 1;
+            required string text = 2;
+            required string creationTime = 3;
+            optional string completionTime = 4;
+        
+        }
+        
+        
+        message TaskSync {
+            repeated Task tasks = 1;
+        
+        }
+        
+        
+        message TaskSyncResponse {
+            repeated Task tasks = 1;
+            required int32 taskLimit = 2;
+        
+        }
+        
+        
+        message TripEstimate {
+            required Position source = 1;
+            required Position destination = 2;
+            required int32 timeToDestination = 3;
+            required int32 distanceToDestination = 4;
+        
+        }
+        
+        
+        message UnpairInputDevice {
+        
+        }
+        
+        
+        message UnsubscribeLocationUpdates {
+        
+        }
+        
+        
+        message UpdateAvailable {
+            required string fileId = 1;
+            required string version = 2;
+            optional string updateRequirement = 3;
+        
+        }
+        
+        
+        message UpdateStatus {
+            required string fileId = 1;
+            required Status status = 2;
+        
+                
+                enum Status {
+                    READY = 0;
+                    STARTING = 1;
+                    ERROR = 2;
+                    CANCELLED = 3;
+                }
+                
+        }
+        
+        
+        message User {
+            optional string name = 1;
+            optional string email = 2;
+        
+        }
+        
+        
+        enum exitpupilalignment_Direction {
+            exitpupilalignment_Direction_LEFT = 1;
+            exitpupilalignment_Direction_UP = 2;
+            exitpupilalignment_Direction_RIGHT = 4;
+            exitpupilalignment_Direction_DOWN = 8;
+        }
+        
+        
+        enum exitpupilalignment_Step {
+            exitpupilalignment_Step_INTRO = 0;
+            exitpupilalignment_Step_SIZING_CHECK = 1;
+            exitpupilalignment_Step_TASK_INTRO = 2;
+            exitpupilalignment_Step_TASK = 3;
+        }
+        
+        
+        enum filetransfer_Status {
+            filetransfer_Status_OK = 0;
+            filetransfer_Status_INVALID_REQUEST = 1;
+            filetransfer_Status_ERROR = 2;
+        }
+        
