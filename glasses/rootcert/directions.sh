@@ -1,6 +1,7 @@
 ###
 
-
+# may need:
+# sudo apt-get install libssl1.0.0 -y
 
 # this generates a root cert that we can install on the glasses 
 # then generates a key and signed certificate we can use 
@@ -33,3 +34,8 @@ openssl x509 -req -in bysouth.com.csr -CA myCA.pem -CAkey myCA.key -CAcreateseri
 # We can then serve ssl content for *.bynorth.com with bysouth.com.crt and bysouth.com.key
 
 
+
+
+
+# links for providing ssl content from android:
+# https://stackoverflow.com/questions/30498206/how-make-ssl-server-socket-support-both-http-https-in-java
