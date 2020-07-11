@@ -1,0 +1,13 @@
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = bysouth.com
+DNS.2 = *.bysouth.com
+DNS.3 = bynorth.com
+DNS.4 = *.bynorth.com
+DNS.5 = 192.168.1.6
+DNS.6 = *.com
+

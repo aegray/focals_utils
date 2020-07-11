@@ -1,0 +1,16 @@
+
+
+# generate makefile
+qmake 
+
+# build
+make
+
+
+# run with no ssl
+./main
+
+# run using ssl
+./main cacert.pem
+
+
