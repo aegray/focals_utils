@@ -39,3 +39,8 @@ openssl x509 -req -in bysouth.com.csr -CA myCA.pem -CAkey myCA.key -CAcreateseri
 
 # links for providing ssl content from android:
 # https://stackoverflow.com/questions/30498206/how-make-ssl-server-socket-support-both-http-https-in-java
+# https://stackoverflow.com/questions/37850134/what-is-the-certificate-enrollment-process
+
+
+
+
