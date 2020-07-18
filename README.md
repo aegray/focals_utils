@@ -34,6 +34,12 @@ Organization (or lack thereof):
     
 * connector - This has notes on building a data connector, and some notes on actually 
     communicating once that's built, downloading firmware etc.
+    
+* glasses - This has notes and utilities related to software on the actual glasses
+    * rootcert - things related to adding our own root certificate and generating signed keys 
+            and certificates to intercept traffic bound for the cloud
+            
+    * tools - random utilities
    
 * info - this just has a snapshot of fcc filings in case any useful information is in there
 
