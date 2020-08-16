@@ -1,0 +1,26 @@
+
+
+If you write a new boot image, and haven't unlocked the device, the android aboot will
+check that the signature matches, then if it doesn't, it will update a device info struct 
+and store it to the devinfo partition on the emmc.
+
+In the devinfo partition:
+Offset 0x10 = is_unlocked (you can have this as either 0 or 1 - 1 means it won't bother to verify boot iamges - which we want)
+Offset 0x14 = is_tampered (you want this to be 0)
+
+
+If aboot ever sees that you have tampered and are not unlocked, it will abort any further booting
+and it causes a bootloop - at which point your only outs are fastboot and edl
+
+
+To remedy this - it's pretty simple - drop into edl, grab a copy of the devinfo partition,
+overwrite offsets 0x10 and 0x14 with the right values (see above), then reboot.
+
+In my case it looks like the boot partition got corrupted by this too - i'm not sure why, so 
+you may have to write the boot partition as well with a backup.
+
+
+
+
+
+

@@ -1,0 +1,51 @@
+
+# get android clang toolchain - we want 3.8.256229
+# full list at https://developer.android.com/ndk/downloads/older_releases
+wget https://dl.google.com/android/repository/android-ndk-r12b-linux-x86_64.zip
+unzip -x android-ndk-r12b-linux-x86_64.zip
+cd android-ndk-r12b
+python2 ./build/tools/make_standalone_toolchain.py   --arch arm --api 24 --install-dir ./standalone-24  # not sure this is right but trying it 
+
+export NDK_ROOT=$( pwd )
+# export NDK_ROOT=<path/to/toolchains>/android-ndk-r12b 
+
+# get qt source
+# more mirrors at http://download.qt.io/official_releases/qt/5.9/5.9.3/single/qt-everywhere-opensource-src-5.9.3.tar.xz.mirrorlist
+wget http://qt.mirrors.tds.net/qt/archive/qt/5.9/5.9.3/single/qt-everywhere-opensource-src-5.9.3.tar.xz
+tar xf qt-everywhere-opensource-src-5.9.3.tar.xz
+cd qt-everywhere-opensource-src-5.9.3
+
+
+# This is incredibly hacky, but I didn't feel like fully figuring out 
+# the build setup - so I put one set of settings in place for the qt build 
+# and a second / final set for usage
+/path/to/this/repo/glasses/tools/qt_setup/setup.sh
+
+# this isn't actually needed - we really only need the headers and configurations
+# I will publish a copy of just the finalized version
+make -j 8 
+make install
+
+/path/to/this/repo/glasses/tools/qt_setup/setup_post.sh
+
+# keep the path in a variable for later usage
+export FOCALS_QT_ROOT=$( pwd )
+
+
+# copy the actual libraries from the glasses firmware into the  install dir
+cp /path/to/focals/mount/system/lib/libQt* $FOCALS_QT_ROOT/install/lib/
+cp /path/to/focals/mount/system/lib/libblack_* $FOCALS_QT_ROOT/install/lib/
+cp /path/to/focals/mount/system/lib/libthalmic* $FOCALS_QT_ROOT/install/lib/
+
+
+# make sure test app builds
+cd /path/to/this/repo/glasses/tools/qt_setup/exampleapp
+$FOCALS_QT_ROOT/install/bin/qmake 
+make
+
+
+
+
+
+
+
