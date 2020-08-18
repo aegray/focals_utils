@@ -162,9 +162,18 @@ Note that anything bluetooth on linux is a massive pain in the ass - and it prob
     heavily on which version of linux, bluez, and gatt you're using.
 
 
-The most fruitful path I've found to actually running custom software on the glasses will involve
-flashing some custom firmware - I have not yet tried this and haven't been messing with 
-the glasses recently because I'm so busy with work, but if anyone wants to try, please contact me
-and I'll provide directions and possible directions to go
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
