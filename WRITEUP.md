@@ -1,5 +1,5 @@
 Current State of the world / updated writeup - the top two sections are a description of the steps
-i took and the things I found out along the way, the last two sections give you an overview
+i took and the things I found out along the way, the next two sections give you an overview
 of what works + what's left, then finally a section laying out the partitions, filesystem and 
 apps:
 
