@@ -1,0 +1,126 @@
+
+
+Software/firmware updates for the glasses are handled by the following process:
+
+* Phone app checks for updates from some web path in ota.bynorth.com
+
+* If available, it downloads the latest package - this is an android ota update package that contains 
+mostly binary patches, and is a delta between two specific versions of the glasses software
+
+* It then sends a bluetooth message to the glasses to denote that "udpate is available" with a 
+file id that it should use to reference the update
+
+* The glasses (through the app "companion_service") start the update process by sending a 
+bluetooth message back to the phone - "start file transfer" with the given file id
+
+* The phone responds with status success, internally opening the downloaded file and having it 
+ready to read from
+
+* The glasses send a number of file transfer data requests - requesting individual chunks of the
+file
+
+* To each chunk, the phone responsds with a bluetooth message specifying the data chunk and a 
+buffer of file data
+
+* Once it has grabbed all chunks, it closes the filetransfer through another bluetooth message
+
+* It copies / writes the downloaded file to /data/thalmic/upm/update_signed.zip
+
+* companion_service then opens the file archive, searching for variant.txt and version.txt.  It
+checks both of these are there and are ok to work with - I think needing "user" for variant.txt and
+making sure that the version isn't below the current version on the glasses
+
+* companion_service then begins signature verification - this is done by the function at offset 
+0x120fec in version 1.114 of the glasses software.  Signature of this function looks like:
+    int verify_pkg_sig(int fileno, QFile *pkg_file, std::string *path_to_ota_certs_zip)
+
+* This function then seeks to end of file - 6 bytes, reads 6 bytes - expecting the following layout:
+    
+    * byte 0 = signature_start_offset_from_end_of_file low byte
+    * byte 1 = signature_start_offset_from_end_of_file high byte
+    * byte 2 = 0xff
+    * byte 3 = 0xff
+    * byte 4 = total signature block size low byte
+    * byte 5 = total signature block size high byte
+
+    This means that the package had to be signed with the signapk.jar -w option (to add a 
+            whole file signature at the end)
+
+* If checks that bytes 2 and 3 are 0xff - if not it fails
+
+* It seeks to len(file) - total signature block size  (probably some slight offset from here, but
+        I dropped the specifics) - looking for the zip file end of central directory record header:
+            the bytes:  0x50 0x4b 0x05 0x06 
+
+        If it doesn't find this, then it fails
+
+* It then allocates an std::string to hold the full signature block (from total sig block size 
+    to eof), copies the data from the file into it
+
+* It then search forward from the start of block to verify it doesn't find 0x50 0x4b 0x05 0x06 again
+ - if it does find this, it fails (I think this protects it from us doing something malicious and 
+    putting multiple signature blocks in - although not sure how i'd exploit this)
+
+* Once it is happy with that, it creates a x509 certificate structure given the string data,
+    then deallocates the string
+
+* It then opens up the ota certs zip, iterates through each certificate in the zip, checking 
+    if any can verify the signature / cert found in our zip.  This is done by the 
+    X509_verify call from openssl.  If it does, then we're good and can continue, if not, it fails
+
+* Once it's happy with our certificate, it sets up a message digest, reads from start of file 
+    up to the offset of the signature block minus 2 bytes (2 bytes holds total length at end of 
+    the zip data), and updates its message digest with this data.
+
+    It then checks that, using our public key, the decrypted signature /message digest from 
+    our signature block matches their calculated digest.  If not, it fails
+
+* I think if it continues, then it will save the file to the cache partition and write out 
+    recovery commands to the misc partition, but this is based solely on knowledge of how
+    android ota updates generally work - did not go this far in reversing the code
+
+
+I have gotten as far as - putting North's pubkey certificate at the end of my update zip,
+  it gets all the way to the message digest stage above, then fails.
+
+Still looking into if there's some trick we could use, like telling the updater that the 
+signature is at start of file or at some fixed offset from start that would reduce the 
+amount of data going into the message digest, but I'm sort of doubting this is possible given:
+
+    a) they check that you don't have multiple end of central directory structures
+
+    b) even if i could stick the signature earlier in the file, i think it would be hard 
+    to get a valid zip file without putting it much later on - and the one case that "maybe"
+    would be useful would be putting the sig at 0ffset 0 in the file so that there is no 
+    data used when calculating the message digest.  Once any data is used, even if its fixed data,
+    I don't have the corrrect private keys so its doubtful i can get anywhere with that.
+
+
+My guess is this is a waste of time and I'm going to look to see if there are any other paths
+of tricking the glasses to execute something
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
